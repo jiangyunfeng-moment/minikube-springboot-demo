@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: prod
+  datasource:
+    # 🔥 用 MySQL Service 名称访问
+    url: jdbc:mysql://mysql-service:3306/blue_ice?useSSL=false&allowPublicKeyRetrieval=true
+    # 账号密码从 Secret 读取（不用改）
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    # 🔥 用 Redis Service 名称访问
+    host: redis-service
+    port: 6379
+    password: ""  # 本地Redis没设密码
+
+server:
+  port: 8080

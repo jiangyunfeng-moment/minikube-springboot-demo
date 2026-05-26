@@ -1,0 +1,48 @@
+# MySQL deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mysql-deploy
+  labels:
+    apps: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        ports: 
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD  # MySQL root密码
+          value: "root"
+        - name: MYSQL_DATABASE       # 自动创建的默认数据库
+          value: "blue_ice"
+        # 数据持久化：本地学习用emptyDir，Pod重启数据不丢
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-data
+        emptyDir: {}
+      
+---
+# MySQL Service(k8s内部访问入口)
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec: 
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+    targetPort: 3306
+            
