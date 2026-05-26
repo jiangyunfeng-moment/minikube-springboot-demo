@@ -6,14 +6,14 @@ Minikube 一键部署 SpringBoot+MySQL+Redis 的 K8s 模板
 - Docker v29.2.1
 
 ## 部署步骤
-1. 启动Minikube
+1.启动Minikube
 ```bash
-   minikube start
+minikube start
 ```
 2.使用 Minikube 的 Docker daemon（最关键的一步，90% 的人会忘）
 临时把你本地电脑上的docker命令，重定向到 Minikube 虚拟机内部的 Docker 引擎上。
 ```bash
-   eval $(minikube docker-env)
+eval $(minikube docker-env)
 ```
 如果需要切回本地dockers：eval $(minikube docker-env -u)
 
